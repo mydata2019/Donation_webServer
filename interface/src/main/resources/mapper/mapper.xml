@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dmvno.charging.interface_send.mapper.SendRepository">
+
+<select id="getURL" resultType="String" parameterType="String">
+	SELECT  API_URL
+	 FROM DON_ORG_INFO
+	WHERE ORG_ID = #{org_id}
+	 ;
+</select>
+
+<select id="getReqNum" resultType="int">
+	SELECT  MAX(REQ_SER_NUM) + 1
+	 FROM DON_NE_IF_LOG;
+</select>
+
+<select id="getUserLnkg" parameterType="String">
+	SELECT  API_URL
+	 FROM DON_ORG_INFO
+	WHERE ORG_ID = #{org_id}
+	 ;
+</select>
+
+<update id="updateIF" parameterType="dmvno.charging.interface_send.domain.NeBeans">
+	UPDATE DON_NE_IF_LOG
+	  SET ne_if_rslt_cd = #{ne_if_rslt_cd}
+	WHERE req_ser_num = #{req_ser_num}
+	;
+</update>
+
+<insert id="insertIF" parameterType="dmvno.charging.interface_send.domain.NeBeans">
+	INSERT INTO DON_NE_IF_LOG 
+	  (NE_IF_CL_CD,  REQ_DT,  REQ_SER_NUM,  FST_CRE_DTM, 
+	   AUDIT_DTM,  CHG_CD,  USER_ID,  ORG_ID, 
+	   OP_CTT,  NE_IF_RSLT_CD,  NE_IF_ERR_CD,  ORGL_REQ_SER_NUM)
+	VALUES 
+	  (#{ne_if_cl_cd},  #{req_dt}, #{req_ser_num},  SYSDATE(), 
+	   SYSDATE(), #{chg_cd},  #{user_id},  #{org_id}, 
+	   #{op_ctt},  #{ne_if_rslt_cd},  #{ne_if_err_cd},  null)
+	;
+</insert>
+
+
+
+<insert id="insertUserLnkg" parameterType="dmvno.charging.interface_send.domain.HistoryBeans">
+	INSERT INTO DON_USER_ORG_LNKG_MGMT 
+	  (USER_ID, ORG_ID, AUDIT_DTM, LNKG_YN)
+	VALUES 
+	  (#{user_id},  #{org_id}, SYSDATE(), #{lnkg_yn})
+	;
+</insert>
+
+</mapper>
