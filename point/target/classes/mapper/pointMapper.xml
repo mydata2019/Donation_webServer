@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE mapper PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="don.point.mapper.PointRepository">
+
+	<resultMap id="DonUserPntBamt" type="don.point.domain.DonUserPntBamt"> 
+		<id property="userId" column="user_id"/>
+		<result property="userId" column="user_id"/>
+		<result property="bamtClCd" column="bamt_cl_cd"/>
+		<result property="pntBamt" column="pnt_bamt"/>
+		<result property="auditDtm" column="audit_dtm"/>
+		<result property="bamtClNm" column="bamt_cl_nm"/>
+	</resultMap>
+	
+	<select id="selectPntBamt"	resultMap="DonUserPntBamt" >
+		select user_id, bamt_cl_cd, format(pnt_bamt,0) pnt_bamt, date_format(audit_dtm, '%Y-%m-%d %H:%i:%s') audit_dtm,
+       		   (select comm_cd_val_nm from don_comm_cd_dtl where comm_cd_id = b.bamt_cl_cd) bamt_cl_nm
+		from don_user_pnt_bamt b
+		where 1=1
+		and user_id = #{userId}
+	</select>
+
+</mapper>
