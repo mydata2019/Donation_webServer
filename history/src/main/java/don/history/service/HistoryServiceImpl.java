@@ -20,6 +20,7 @@ class HistoryServiceImpl implements HistoryService {
 
 		int id = Integer.parseInt(userId);				
 		List<HashMap<String, Object>> result = histRepo.selectHistory(id);
+
 		return result;
 	}
 

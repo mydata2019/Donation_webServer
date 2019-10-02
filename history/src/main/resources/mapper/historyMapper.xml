@@ -25,7 +25,7 @@
 	<select id="selectHistory"	resultType="hashmap" >
 		select user_id, don_dt, org_id, date_format(rcv_dtm, '%Y-%m-%d %H:%i:%s') rcv_dtm, format(don_amt,0) don_amt, ins_mthd, settl_way_cd, pay_mthd_cd, regu_yn, don_ctt,
 	   		   (select user_nm from don_user_info where user_id = d.user_id) user_nm,
-	   		   (select org_nm from don_org_info where org_id = d.org_id) org_nm,       
+	   		   (select org_nm from don_org_info where org_id = d.org_id) org_nm,
        		   (select comm_cd_val_nm from don_comm_cd_dtl where comm_cd_id = d.ins_mthd) ins_mthd_nm,
 	   		   (select comm_cd_val_nm from don_comm_cd_dtl where comm_cd_id = d.settl_way_cd) settl_way_nm,
        		   (select comm_cd_val_nm from don_comm_cd_dtl where comm_cd_id = d.pay_mthd_cd) pay_mthd_nm,

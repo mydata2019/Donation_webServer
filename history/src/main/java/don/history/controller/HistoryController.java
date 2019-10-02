@@ -54,7 +54,7 @@ public class HistoryController {
 
 		System.out.println("userId : "+userId);
 		List<HashMap<String, Object>> result = histService.selectHistory(userId);
-		System.out.println("model : " + result);
+		System.out.println("result : " + result);
 		
 		return result;
 		
