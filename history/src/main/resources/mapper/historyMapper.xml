@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE mapper PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="don.history.mapper.HistoryRepository">
+
+	<resultMap id="DonUserDonHst" type="don.history.domain.DonUserDonHst"> 
+		<id property="userId" column="user_id"/>
+		<result property="userId" column="user_id"/>
+		<result property="donDt" column="don_dt"/>
+		<result property="orgId" column="org_id"/>
+		<result property="rcvDtm" column="rcv_dtm"/>
+		<result property="donAmt" column="don_amt"/>
+		<result property="insMthd" column="ins_mthd"/>		
+		<result property="settlWayCd" column="settl_way_cd"/>
+		<result property="payMthdCd" column="pay_mthd_cd"/>
+		<result property="reguYn" column="regu_yn"/>
+		<result property="donCtt" column="don_ctt"/>		
+		<result property="userNm" column="user_nm"/>
+		<result property="orgNm" column="org_nm"/>
+		<result property="insMthdNm" column="ins_mthd_nm"/>
+		<result property="settlWayNm" column="settl_way_nm"/>
+		<result property="payMthdNm" column="pay_mthd_nm"/>
+		<result property="reguNm" column="regu_nm"/>
+	</resultMap>
+	
+	<select id="selectHistory"	resultType="list"	parameterType="string">
+		select user_id, don_dt, org_id, date_format(rcv_dtm, '%Y-%m-%d %H:%i:%s') rcv_dtm, format(don_amt,0) don_amt, ins_mthd, settl_way_cd, pay_mthd_cd, regu_yn, don_ctt,
+	   		   (select user_nm from don_user_info where user_id = d.user_id) user_nm,
+	   		   (select org_nm from don_org_info where org_id = d.org_id) org_nm,       
+       		   (select comm_cd_val_nm from don_comm_cd_dtl where comm_cd_id = d.ins_mthd) ins_mthd_nm,
+	   		   (select comm_cd_val_nm from don_comm_cd_dtl where comm_cd_id = d.settl_way_cd) settl_way_nm,
+       		   (select comm_cd_val_nm from don_comm_cd_dtl where comm_cd_id = d.pay_mthd_cd) pay_mthd_nm,
+       		   case when regu_yn = '1' then '정기후원'
+					   when regu_yn = '0' then '일시후원'
+					   else ''
+	   		   end regu_nm      
+		from don_user_don_hst d
+		where 1=1
+		and user_id = #{userId}
+		order by don_dt desc, org_id
+	</select>
+
+</mapper>
