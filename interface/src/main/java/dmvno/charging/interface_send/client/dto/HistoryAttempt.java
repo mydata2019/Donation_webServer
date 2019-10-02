@@ -22,7 +22,7 @@ import lombok.ToString;
 @JsonDeserialize(using = Deserializer.class)
 public final class HistoryAttempt {
 
-  private final List<Map<String,Object>> history;
+  private final List<Map<String,String>> history;
 
   // JSON/JPA 를 위한 빈 생성자
   HistoryAttempt() {
