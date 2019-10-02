@@ -17,9 +17,9 @@ class HistoryServiceImpl implements HistoryService {
 	private HistoryRepository histRepo; //repository
 	
 	public List<HashMap<String, Object>> selectHistory(String userId) {
-		
-		List<HashMap<String, Object>> result = histRepo.selectHistory(userId);
-		System.out.println("DonUserDonHst result >> "+result);
+
+		int id = Integer.parseInt(userId);				
+		List<HashMap<String, Object>> result = histRepo.selectHistory(id);
 		return result;
 	}
 

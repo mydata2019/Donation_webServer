@@ -22,7 +22,7 @@
 		<result property="reguNm" column="regu_nm"/>
 	</resultMap>
 	
-	<select id="selectHistory"	resultType="list"	parameterType="string">
+	<select id="selectHistory"	resultType="hashmap" >
 		select user_id, don_dt, org_id, date_format(rcv_dtm, '%Y-%m-%d %H:%i:%s') rcv_dtm, format(don_amt,0) don_amt, ins_mthd, settl_way_cd, pay_mthd_cd, regu_yn, don_ctt,
 	   		   (select user_nm from don_user_info where user_id = d.user_id) user_nm,
 	   		   (select org_nm from don_org_info where org_id = d.org_id) org_nm,       
@@ -32,7 +32,7 @@
        		   case when regu_yn = '1' then '정기후원'
 					   when regu_yn = '0' then '일시후원'
 					   else ''
-	   		   end regu_nm      
+	   		   end regu_nm
 		from don_user_don_hst d
 		where 1=1
 		and user_id = #{userId}
