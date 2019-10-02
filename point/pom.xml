@@ -5,11 +5,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>don</groupId>
-  <artifactId>history</artifactId>
+  <artifactId>point</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>history</name>
+  <name>point</name>
   <url>http://maven.apache.org</url>
 
 	<parent>

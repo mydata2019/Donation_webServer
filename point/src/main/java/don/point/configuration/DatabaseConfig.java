@@ -15,7 +15,7 @@ public class DatabaseConfig {
 	public SqlSessionFactory sqlSessionFactory(DataSource datasource) throws Exception{
 		SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
 		bean.setDataSource(datasource);
-		bean.setTypeAliasesPackage("don.history");
+		bean.setTypeAliasesPackage("don.point");
 		bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:/mapper/*.xml"));
 		return bean.getObject();
 	}
