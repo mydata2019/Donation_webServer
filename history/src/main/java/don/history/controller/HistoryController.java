@@ -31,6 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import don.history.domain.DonUserInfoMain;
 import don.history.service.HistoryService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -50,10 +51,10 @@ public class HistoryController {
 	
 	// MY기부내역 조회
 	@RequestMapping("/selectMain")
-	public @ResponseBody List<HashMap<String, Object>> selectMyDonation(@RequestBody String userId) {
+	public @ResponseBody DonUserInfoMain selectMyDonation(@RequestBody String userId) {
 
 		System.out.println("userId : "+userId);
-		List<HashMap<String, Object>> result = histService.selectHistory(userId);
+		DonUserInfoMain result = histService.selectHistory(userId);
 		System.out.println("result : " + result);
 		
 		return result;

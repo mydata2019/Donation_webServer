@@ -6,11 +6,13 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import don.history.domain.DonUserInfoMain;
+
 /**
  * MY기부내역
  */
 public interface HistoryService {
 
-  List<HashMap<String, Object>> selectHistory(String userId); 
+  DonUserInfoMain selectHistory(String userId); 
   
 }
