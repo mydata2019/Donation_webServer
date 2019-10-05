@@ -6,6 +6,28 @@
   <link rel="stylesheet" type="text/css" href="styles.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="interface-send.js"></script>
+  <script>
+  function select() {
+		alert("실행");
+		var data = {user_id: 1};
+	    // POST 로 데이터 보내기
+	    $.ajax({
+	      url: '/Interface/GetLnkg',
+	      type: 'POST',
+	      data: JSON.stringify(data),
+	      contentType: "application/json; charset=utf-8",
+	      dataType: "json",
+	      async: false,
+	      success: function (data) {
+	    	  alert(JSON.stringify(data[0]));
+	    	  alert(JSON.stringify(data[0].lnkg_yn));
+	    	  $("#dataArea").html(data[0]) ;
+	      }
+	    });
+
+	  }
+
+  </script>
 </head>
 
 <body>
@@ -15,7 +37,7 @@
     	ID <input type="text" name="id" value="cyh602"><br>
     	비번 <input type="text" name="pw" value="2898"> <br>
     	----------충전만------------------<br>
-    	기부니조아 ID <input type="text" name="user_id" value="cyh602_give"> 
+    	기부니조아 ID <input type="text" name="user_id" value="1"> 
     	판매점코드 <input type="text" name="org_id" value="1"> <br>
     	
     	<input type="submit" value="확인">
@@ -24,14 +46,17 @@
     	ID <input type="text" name="id" value="cyh602"><br>
     	비번 <input type="text" name="pw" value="2898"> <br>
     	----------충전만------------------<br>
-    	기부니조아 ID <input type="text" name="user_id" value="cyh602_give"> 
+    	기부니조아 ID <input type="text" name="user_id" value="1"> 
     	판매점코드 <input type="text" name="org_id" value="1"> <br>
     	
     	<input type="submit" value="확인">
   </form>
   
   
-  <h2><span class="result-message"></span></h2>
+  <h2><span class="result-message">zzz</span></h2>
+  <A onclick="select();">aa</A>
+  <div id="dataArea"></div>
+ 
   <table id="stats" style="width:100%">
 
     <tbody id="stats-body"></tbody>

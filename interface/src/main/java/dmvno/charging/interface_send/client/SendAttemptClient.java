@@ -1,5 +1,8 @@
 package dmvno.charging.interface_send.client;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -28,14 +31,17 @@ public class SendAttemptClient {
   public SendAttempt callAuth(final String url, final String id, final String pw) {
 	  System.out.println("url : " + url);
 	  System.out.println("IF송신값 : id = " + id + ", pw = " + pw);
-    return restTemplate.getForObject(url + "/auth/" + id + "/" + pw,
-            SendAttempt.class);
+	  
+	  SendAttempt result = restTemplate.getForObject(url + "/auth/" + id + "/" + pw,
+	            SendAttempt.class);
+	  System.out.println(result);
+    return result;
   }
   
-  public HistoryAttempt callHistory(final String url, final String id) {
+  public List<HashMap<String,Object>> callHistory(final String url, final String id) {
 	  System.out.println("url : " + url);
 	  System.out.println("IF송신값 : id = " + id);
     return restTemplate.getForObject(url + "/getHistory/" + id,
-    		HistoryAttempt.class);
+    		List.class);
   }
 }

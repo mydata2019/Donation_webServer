@@ -24,6 +24,6 @@ public class Deserializer
           throws IOException, JsonProcessingException {
     ObjectCodec oc = jsonParser.getCodec();
     JsonNode node = oc.readTree(jsonParser);
-    return new SendAttempt(node.get("correct").asText());
+    return new SendAttempt(node.get("linkYn").asText());
   }
 }

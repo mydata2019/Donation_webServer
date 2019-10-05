@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.ibatis.io.Resources;
@@ -71,6 +73,7 @@ public class InterfaceSendService {
 			historyBeans.setLnkg_yn("1");
 			sendRepo.insertUserLnkg(historyBeans);
 			
+			System.out.println("checkAuth 완료 >>>>>>");
 			return "Y";
 			
 		} else if(sendAttempt.getLinkYn().equals("N")) {
@@ -90,16 +93,6 @@ public class InterfaceSendService {
 		
 		System.out.println("getHist 호출 >>>>>>");
 		
-		/* 개인별 연동여부 확인 */
-		String lnkg_yn = sendRepo.getUserLnkg(authBeans.getUser_id());
-		if (lnkg_yn.equals("1")){
-			System.out.println("연동된 User 확인");
-		} else if (lnkg_yn.equals("0")) {
-			return "N";
-		} else {
-			System.out.println("알 수 없음 : " + lnkg_yn);
-			return "N";
-		}
 		
 		/* NE_IF insert */
 		int req_num = sendRepo.getReqNum();
@@ -115,8 +108,9 @@ public class InterfaceSendService {
 		/* 기부업체 : 조회 요청 */
 		// 업체별 URL 확인
 		String url = sendRepo.getURL(authBeans.getOrg_id());
-		HistoryAttempt historyAttempt = sendAttempClient.callHistory(url, authBeans.getId());
-		System.out.println(historyAttempt);
+//		HistoryAttempt historyAttempt = sendAttempClient.callHistory(url, authBeans.getId());
+		List<HashMap<String,Object>> history= sendAttempClient.callHistory(url, authBeans.getId());
+		System.out.println(history);
 		/* NE_IF Update (완료) */
 		neBeans.setNe_if_rslt_cd("SC");
 		sendRepo.updateIF(neBeans);
@@ -124,10 +118,24 @@ public class InterfaceSendService {
 		// TO-DO : 기부이력 추가 MS 호출 (bean list로 협의)
 		// TO-DO : 포인트이력 관리  MS 호출 
 		
-		System.out.println("interface_receive 완료 >>>>>>");
+		System.out.println("getDonationHistory 완료 >>>>>>");
 		
 		return "Y";
 
 	}
 
+	// 데이터 조회 & 이력 생성 (업무코드 : H1)
+	public List<HistoryBeans> getLnkg(final AuthBeans authBeans) {
+		
+		System.out.println("getLnkg 호출 >>>>>>");
+		
+		/* 개인별 연동여부 확인 */
+		List<HistoryBeans> result = sendRepo.getUserLnkg(authBeans.getUser_id());
+
+		System.out.println("getLnkg 완료 >>>>>>");
+		
+		return result;
+
+	}
+	
 }

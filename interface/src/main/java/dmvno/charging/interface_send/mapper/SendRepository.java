@@ -1,5 +1,7 @@
 package dmvno.charging.interface_send.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -14,7 +16,7 @@ public interface SendRepository {
 	void insertIF(@Param("neBeans") NeBeans pbb);
 	void updateIF(@Param("neBeans") NeBeans pbb);
 	void insertUserLnkg(@Param("historyBeans") HistoryBeans pbb);
-	String getUserLnkg(String user_id);
+	List<HistoryBeans> getUserLnkg(String user_id);
 	String getURL(String org_id);
 	int getReqNum();
 }
