@@ -1,0 +1,20 @@
+#server:
+#  port: 8084
+
+spring:
+  application:
+    name: interface_receive
+    
+---
+spring:
+  profiles: dev
+  cloud:
+    config:
+      uri: http://localhost:8888/ 
+
+--- 
+spring:
+  profiles: real
+  cloud:
+    config:
+      uri: http://configserver-svc.default.svc.cluster.local:8888
