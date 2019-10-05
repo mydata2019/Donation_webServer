@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE mapper PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="don.user.mapper.UserRepository">
+
+	<resultMap id="DonUserInfo" type="don.user.domain.DonUserInfo"> 
+		<id property="userLoginId" column="user_login_id"/>
+		<id property="userPassword" column="user_password"/>
+		<result property="userId" column="user_id"/>
+		<result property="userLoginId" column="user_login_id"/>
+		<result property="userPassword" column="user_password"/>
+		<result property="userNm" column="user_nm"/>
+		<result property="userSvcNum" column="user_svc_num"/>		
+		<result property="userResidence" column="user_residence"/>
+		<result property="userMarriedYn" column="user_married_yn"/>
+		<result property="userInterest1" column="user_interest1"/>
+		<result property="userInterest2" column="user_interest2"/>
+		<result property="userInterest3" column="user_interest3"/>		
+		<result property="userMarriedNm" column="user_married_nm"/>
+		<result property="userInterest1Nm" column="user_interest1_nm"/>
+		<result property="userInterest2Nm" column="user_interest2_nm"/>
+		<result property="userInterest3Nm" column="user_interest3_nm"/>
+	</resultMap>
+	
+	<select id="selectUserInfo"	resultMap="DonUserInfo" >
+		select user_id, user_login_id, user_password, user_nm, user_svc_num, user_residence, user_married_yn, user_interest1, user_interest2, user_interest3,
+			   case when user_married_yn = '1' then '기혼'
+			 	    when user_married_yn = '0' then '미혼'
+					else ''
+	   		   end user_married_nm,
+       		   (select comm_cd_val_nm from don_comm_cd_dtl where comm_cd_id = u.user_interest1) user_interest1_nm,
+               (select comm_cd_val_nm from don_comm_cd_dtl where comm_cd_id = u.user_interest2) user_interest2_nm,
+               (select comm_cd_val_nm from don_comm_cd_dtl where comm_cd_id = u.user_interest3) user_interest3_nm
+		from don_user_info u
+		where 1=1
+		and user_login_id = #{userLoginId}
+        and user_password = #{userPassword}
+	</select>
+
+</mapper>

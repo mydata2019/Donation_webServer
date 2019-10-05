@@ -15,7 +15,7 @@ import don.history.domain.DonUserDonHst;
 public interface HistoryRepository {
 	
 	//MY기부이력 조회
-	List<HashMap<String, Object>> selectHistory(@Param("userId") String userId);
+	List<HashMap<String, Object>> selectHistory(@Param("userId") int userId);
 //	HashMap<String,Object> selectHistory(@Param("userId") String userId);
 
 }
