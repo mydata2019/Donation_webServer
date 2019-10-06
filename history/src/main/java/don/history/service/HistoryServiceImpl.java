@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import don.history.client.DonUserPntBamt;
 import don.history.client.PointIf;
+import don.history.domain.DonUserDonHst;
 import don.history.domain.DonUserInfoMain;
 import don.history.mapper.HistoryRepository;
 
@@ -43,5 +44,18 @@ class HistoryServiceImpl implements HistoryService {
 
 	}
 
+	public String insertHistory(List<HashMap<String, Object>> donationHistory, String gubun) {
+
+		System.out.println("insert Service 시작");
+		for (HashMap<String, Object> a : donationHistory) {
+			a.put("INS_MTHD", gubun); // REL01: 직접입력, REL02: API연동
+			histRepo.insertHistory(a);
+		}
+
+		System.out.println("insert 완료");
+		
+        return "SC";
+
+	}
 	
 }

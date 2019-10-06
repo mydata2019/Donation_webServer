@@ -26,5 +26,16 @@ class PointServiceImpl implements PointService {
 		return result;
 	}
 
+	public String updatePntBamt(HashMap<String, Object> pointMap) {
+		
+		int addDon = (int) pointMap.get("ADD_DON_AMT");
+		int addPnt = (int) (addDon * 0.001);
+		System.out.println("addDon = " + addDon + ", addPnt = " + addPnt);
+		pointMap.put("ADD_PNT_AMT", addPnt);
+		pntRepo.updatePntBamt(pointMap);
+		
+		return "SC";
+	}
+
 	
 }

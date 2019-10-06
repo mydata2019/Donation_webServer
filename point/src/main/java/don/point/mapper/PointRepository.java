@@ -16,7 +16,8 @@ public interface PointRepository {
 	
 	//MY포인트 조회
 	DonUserPntBamt selectPntBamt(@Param("userId") int userId);
-
+	//MY포인트 추가
+	void updatePntBamt(HashMap<String, Object> pointMap);
 }
 
 

@@ -18,6 +18,8 @@ public interface HistoryRepository {
 	List<HashMap<String, Object>> selectHistory(@Param("userId") int userId);
 //	HashMap<String,Object> selectHistory(@Param("userId") String userId);
 
+	void insertHistory(HashMap<String, Object> donationHistory);
+
 }
 
 

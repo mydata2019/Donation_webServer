@@ -61,7 +61,18 @@ public class PointController {
 		
 	}
 	
+	// MY기부내역 조회
+	@RequestMapping("/insert")
+	public @ResponseBody String insertMyPoint(@RequestBody HashMap<String, Object> pointSet) {
 
+		System.out.println("pointSet : "+ pointSet);
+		String result = pntService.updatePntBamt(pointSet);
+		System.out.println("result : " + result);
+		
+		return result;
+		
+	}
+	
 }
 
 

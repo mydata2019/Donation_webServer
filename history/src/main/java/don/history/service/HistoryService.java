@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import don.history.domain.DonUserDonHst;
 import don.history.domain.DonUserInfoMain;
 
 /**
@@ -14,5 +15,5 @@ import don.history.domain.DonUserInfoMain;
 public interface HistoryService {
 
   DonUserInfoMain selectHistory(String userId); 
-  
+  String insertHistory(List<HashMap<String, Object>> donationHistory, String gubun);
 }

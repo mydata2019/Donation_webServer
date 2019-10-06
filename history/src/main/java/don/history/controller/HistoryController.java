@@ -1,6 +1,7 @@
 package don.history.controller;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import don.history.domain.DonUserDonHst;
 import don.history.domain.DonUserInfoMain;
 import don.history.service.HistoryService;
 import lombok.extern.slf4j.Slf4j;
@@ -61,7 +63,32 @@ public class HistoryController {
 		
 	}
 	
+	// MY기부내역 자동추가
+	@RequestMapping("/insertHistory")
+	public @ResponseBody String insertMyDonation(@RequestBody List<HashMap<String, Object>> donationHistory) {
 
+		System.out.println("donUserDonHst : "+donationHistory);
+		String result = histService.insertHistory(donationHistory, "REL02");
+		System.out.println("result : " + result);
+		
+		return result;
+		
+	}
+
+	// MY기부내역 수동추가
+	@RequestMapping("/insertHistoryText")
+	public @ResponseBody String insertMyDonationText(@RequestBody HashMap<String, Object> donationText) {
+		
+		List<HashMap<String, Object>> donationHistory = new ArrayList<HashMap<String, Object>>();
+		donationHistory.add(donationText);
+		System.out.println("donationText : "+donationText);
+		String result = histService.insertHistory(donationHistory, "REL01");
+		System.out.println("result : " + result);
+		
+		return result;
+		
+	}
+	
 }
 
 
