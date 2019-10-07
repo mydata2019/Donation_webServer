@@ -25,6 +25,7 @@ final class InterfaceSendController {
 		this.interfaceSendService = interfaceSendService;
 	}
 
+	// 외부 인증
 	@RequestMapping("/Auth")
 	ResponseEntity<String> sendAuthMessage(@RequestBody AuthBeans authBeans) {
 		System.out.println("Auth ----" + authBeans);
@@ -34,6 +35,7 @@ final class InterfaceSendController {
 		return ResponseEntity.ok(linkYn);
 	}
 
+	// 이력 외부로부터 가져오기 & 내부 Insert
 	@RequestMapping("/GetDonation")
 	ResponseEntity<String> sendHistoryMessage(@RequestBody AuthBeans authBeans) {
 		System.out.println("GetDonation ----" + authBeans);
@@ -43,6 +45,7 @@ final class InterfaceSendController {
 		return ResponseEntity.ok(getYn);
 	}
 	
+	// 개인별 연동이력 조회
 	@RequestMapping("/GetLnkg")
 	ResponseEntity<List<HistoryBeans>> sendLnkgMessage(@RequestBody AuthBeans authBeans) {
 		System.out.println("GetLnkg ----" + authBeans);

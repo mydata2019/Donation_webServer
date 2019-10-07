@@ -146,7 +146,7 @@ public class InterfaceSendService {
 
 	}
 
-	// 데이터 조회 & 이력 생성 (업무코드 : H1)
+	// 개인별 연동이력 조회
 	public List<HistoryBeans> getLnkg(final AuthBeans authBeans) {
 
 		System.out.println("getLnkg 호출 >>>>>>");
