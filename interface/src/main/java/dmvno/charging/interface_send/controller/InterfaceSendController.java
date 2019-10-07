@@ -16,6 +16,7 @@ import dmvno.charging.interface_send.service.InterfaceSendService;
  */
 @RestController
 @RequestMapping("/Interface")
+@CrossOrigin
 final class InterfaceSendController {
 
 	private final InterfaceSendService interfaceSendService;
