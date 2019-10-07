@@ -38,5 +38,15 @@
 		and user_id = #{userId}
 		order by don_dt desc, org_id
 	</select>
+	<select id="selectHistorySpc"	resultType="hashmap" >
+		select user_id, org_id, format(sum(don_amt),0) sub_don_amt,
+			   (select user_nm from don_user_info where user_id = d.user_id) user_nm,
+			   (select org_nm from don_org_info where org_id = d.org_id) org_nm
+        from don_user_don_hst d
+        where 1=1
+        and user_id = #{userId}
+        group by user_id, org_id
+        order by org_id
+	</select>
 
 </mapper>

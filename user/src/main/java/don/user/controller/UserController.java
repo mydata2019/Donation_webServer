@@ -31,7 +31,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
-import don.user.domain.DonUserInput;
 import don.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -51,13 +50,26 @@ public class UserController {
 	
 	// MY기부내역 조회
 	@RequestMapping("/confirm")
-	public @ResponseBody boolean selectMyPoint(@RequestBody DonUserInput donUserInput) {
+	public @ResponseBody ModelAndView selectMyPoint(String userLoginId, String userPassword) {
+		
+		ModelAndView mav = new ModelAndView();
+		String url = "";
+		String ip = "localhost";
 
-		System.out.println("userLoginId : "+ donUserInput.getUserLoginId());
-		boolean result = userService.confirmUserInfo(donUserInput.getUserLoginId(), donUserInput.getUserPassword());
+		System.out.println("userLoginId : "+ userLoginId);
+		boolean result = userService.confirmUserInfo(userLoginId, userPassword);
 		System.out.println("result : " + result);
 		
-		return result;
+		if(result == true) {
+			url="redirect:http://"+ip+":8080/jsp/mainMyDon.jsp";
+		}else {
+			url="redirect:http://"+ip+":8080/jsp/login.jsp";
+		}
+		
+		mav.setViewName(url);
+		mav.addObject("userId", 1);  
+		  
+		return mav;
 		
 	}
 	

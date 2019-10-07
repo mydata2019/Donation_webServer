@@ -20,12 +20,15 @@ import lombok.ToString;
 @EqualsAndHashCode
 public final class DonUserInfoMain {
 
-	private final List<HashMap<String, Object>> hstResult;
+	private final List<Map<String, Object>> hstResultSpc;
+	private final List<Map<String, Object>> hstResult;
 	private final String pntBamt;
 
   // JSON/JPA 를 위한 빈 생성자
 	DonUserInfoMain() {
-		hstResult = new ArrayList<HashMap<String, Object>>();
+		
+		hstResultSpc = new ArrayList();
+		hstResult = new ArrayList();
 		pntBamt= "";
 
   }
