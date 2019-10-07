@@ -54,6 +54,21 @@ class HistoryServiceImpl implements HistoryService {
 
 		System.out.println("insert 완료");
 		
+		
+		// 포인트 MS 호출
+		int addDon = 0;
+		for (HashMap<String, Object> a : donationHistory) {
+			addDon = addDon + Integer.parseInt(a.get("DON_AMT").toString());
+		}
+		HashMap<String, Object> requestSet2 = new HashMap<String, Object>();
+		requestSet2.put("USER_ID", donationHistory.get(0).get("USER_ID"));
+		requestSet2.put("BAMT_CL_CD", "DON01");
+		requestSet2.put("ADD_DON_AMT", addDon);
+		
+		System.out.println("addDon >> " + addDon);
+		String ack2 = pntIf.callInsertPoint(requestSet2);
+		System.out.println("callInsertPoint 완료 >>>>>>" + ack2);
+
         return "SC";
 
 	}

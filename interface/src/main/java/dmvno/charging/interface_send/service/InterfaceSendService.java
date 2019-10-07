@@ -125,7 +125,9 @@ public class InterfaceSendService {
 		String ack = sendAttempClient.callInsertHistory(requestSet1);
 		System.out.println("callInsertHistory 완료 >>>>>>" + ack);
 
-		/* 포인트이력 관리 MS 호출 */
+		
+		/* 포인트 추가는 history로 이동
+		// 포인트이력 관리 MS 호출 
 		int addDon = 0;
 		for (HashMap<String, Object> a : history) {
 			addDon = addDon + Integer.parseInt(a.get("DON_AMT").toString());
@@ -138,7 +140,8 @@ public class InterfaceSendService {
 		System.out.println("addDon >> " + addDon);
 		String ack2 = sendAttempClient.callInsertPoint(requestSet2);
 		System.out.println("callInsertPoint 완료 >>>>>>" + ack2);
-
+		*/
+		
 		return "Y";
 
 	}
