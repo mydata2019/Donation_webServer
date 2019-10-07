@@ -1,5 +1,6 @@
 package dmvno.charging.interface_send.client.dto;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,10 +20,9 @@ import lombok.ToString;
 @Getter
 @ToString
 @EqualsAndHashCode
-@JsonDeserialize(using = Deserializer.class)
 public final class HistoryAttempt {
 
-  private final List<Map<String,String>> history;
+  private final List<HashMap<String,Object>> history;
 
   // JSON/JPA 를 위한 빈 생성자
   HistoryAttempt() {

@@ -49,4 +49,12 @@
         order by org_id
 	</select>
 
+	<select id="insertHistory"	parameterType="hashmap" >
+		INSERT INTO don_user_don_hst 
+		 (user_id, don_dt, org_id, rcv_dtm, don_amt, ins_mthd, settl_way_cd, pay_mthd_cd, regu_yn, don_ctt)
+		VALUES 
+		 (#{USER_ID}, #{DON_DT}, #{ORG_ID}, SYSDATE(), #{DON_AMT}, #{INS_MTHD}, #{SETTL_WAY_CD}, #{PAY_MTHD_CD}, #{REGU_YN}, #{DON_CTT});
+
+	</select>
+
 </mapper>

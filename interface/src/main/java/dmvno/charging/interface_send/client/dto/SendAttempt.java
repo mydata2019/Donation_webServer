@@ -16,7 +16,6 @@ import lombok.ToString;
 @Getter
 @ToString
 @EqualsAndHashCode
-@JsonDeserialize(using = Deserializer.class)
 public final class SendAttempt {
 
 	private final String linkYn;

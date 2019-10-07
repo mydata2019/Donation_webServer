@@ -14,5 +14,6 @@ import don.point.domain.DonUserPntBamt;
 public interface PointService {
 
 	DonUserPntBamt selectPntBamt(String userId); 
-  
+	String updatePntBamt(HashMap<String, Object> pointMap); 
+	  
 }

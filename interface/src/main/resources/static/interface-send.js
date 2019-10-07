@@ -14,7 +14,8 @@ $(document).ready(function () {
     // API 에 맞게 데이터를 조합하기
     var data = {id: id, pw: pw, user_id: user_id, org_id: org_id};
     
-    var  = '/Interface/Auth';
+    
+    var url = '/Interface/Auth';
 
     // POST 로 데이터 보내기
     $.ajax({
@@ -30,7 +31,6 @@ $(document).ready(function () {
     });
 
   });
-  
   
   $("#data-form").submit(function (event) {
 		alert("기부이력 가져오기 실행");
@@ -61,5 +61,6 @@ $(document).ready(function () {
 	    });
 
 	  });
-  
+
 });
+

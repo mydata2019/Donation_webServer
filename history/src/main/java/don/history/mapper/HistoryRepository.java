@@ -17,8 +17,12 @@ public interface HistoryRepository {
 	//MY기부이력 조회(명세)
 	List<Map<String, Object>> selectHistorySpc(@Param("userId") int userId);
 
+
 	//MY기부이력 조회(상세)
 	List<Map<String, Object>> selectHistory(@Param("userId") int userId);
+
+	void insertHistory(HashMap<String, Object> donationHistory);
+
 }
 
 

@@ -19,4 +19,12 @@
 		and user_id = #{userId}
 	</select>
 
+	<update id="updatePntBamt" parameterType="hashmap">
+		UPDATE don_user_pnt_bamt
+		  SET pnt_bamt = pnt_bamt + #{ADD_PNT_AMT}, audit_dtm = SYSDATE()
+		WHERE user_id = #{USER_ID}
+		  AND bamt_cl_cd = #{BAMT_CL_CD}
+		;
+	</update>
+
 </mapper>
