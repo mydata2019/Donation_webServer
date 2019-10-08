@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE mapper PUBLIC "-/mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="don.statistics.mapper.StatisticsRepository">
+
+	<resultMap id="StatisticsParams" type="don.statistics.domain.StatisticsParams"> 
+			
+	</resultMap>
+	
+	<select id="selectTotalAmt"	resultType="int">
+	SELECT SUM(a.don_amt) donAmt
+	  FROM don_user_don_hst a
+	 WHERE 1=1
+	   AND a.user_id = #{userId}
+	   AND DATE_FORMAT(a.don_dt, '%Y') = DATE_FORMAT(SYSDATE(), '%Y')
+	</select>
+	
+	<select id="selectColStatistics"	resultType="hashmap">
+	SELECT don_month
+	     , SUM(CASE WHEN r_num = 1 THEN don_amt/10000 END) AS org_category_nm0
+	     , SUM(CASE WHEN r_num = 2 THEN don_amt/10000 END) AS org_category_nm1
+	     , SUM(CASE WHEN r_num = 3 THEN don_amt/10000 END) AS org_category_nm2
+	     , SUM(CASE WHEN r_num = 4 THEN don_amt/10000 END) AS org_category_nm3
+	     , SUM(CASE WHEN r_num = 5 THEN don_amt/10000 END) AS org_category_nm4
+	     , SUM(CASE WHEN r_num >= 6 THEN don_amt/10000 END) AS org_category_nm5
+	  FROM (
+	SELECT A.*, B.r_num
+	  FROM 
+		(SELECT a.user_id
+			  , SUBSTR(a.don_dt, 5,2) don_month
+			  , b.org_category_id
+			  , b.org_category_nm
+			  , don_amt
+		  FROM don_user_don_hst a
+		     , don_org_info b
+		 WHERE 1=1
+		   AND a.user_id = 2
+		   AND a.org_id = b.org_id
+			AND SUBSTR(a.don_dt, 1,4) = DATE_FORMAT(SYSDATE(), '%Y')
+		) A,
+		(SELECT org_category_id
+			   , @rownum0 := @rownum0+1 AS r_num
+		  FROM (
+			SELECT a.user_id	
+				  , b.org_category_id
+				  , b.org_category_nm
+				  , SUM(a.don_amt) don_amt
+			  FROM don_user_don_hst a
+			     , don_org_info b
+			 WHERE 1=1
+			   AND a.user_id = #{userId}
+			   AND a.org_id = b.org_id
+				AND SUBSTR(a.don_dt, 1,4) = DATE_FORMAT(SYSDATE(), '%Y')
+			 GROUP BY a.user_id, b.org_category_id, b.org_category_nm
+			 ORDER BY don_amt DESC
+			) A
+			, (SELECT @rownum0 :=0) AS R
+		) B	
+	WHERE 1=1
+	  AND A.org_category_id = B.org_category_id
+	) D
+	GROUP BY don_month
+	</select>
+	
+	<select id="selectCatStatistics"	resultType="hashmap">
+  	SELECT *
+	  FROM (
+		SELECT r_num
+		     , (CASE WHEN r_num >= 6 THEN '기타후원' ELSE org_category_nm END) org_category_nm
+		  FROM (
+		 SELECT user_id
+			   , org_category_id
+			   , org_category_nm
+			   , don_amt
+			   , @rownum0 := @rownum0+1 AS r_num
+		  FROM (
+			SELECT a.user_id
+				  , b.org_category_id
+				  , b.org_category_nm
+				  , SUM(a.don_amt) don_amt
+			  FROM don_user_don_hst a
+			     , don_org_info b
+			 WHERE 1=1
+			   AND a.user_id = #{userId}
+			   AND a.org_id = b.org_id
+				AND SUBSTR(a.don_dt, 1,4) = DATE_FORMAT(SYSDATE(), '%Y')
+			 GROUP BY a.user_id, b.org_category_id, b.org_category_nm
+			 ORDER BY don_amt DESC
+			) A
+			, (SELECT @rownum0 :=0) AS R
+		)B
+	)C
+	WHERE r_num BETWEEN 1 AND 6 
+	</select>
+	
+	<select id="selectPieStatistics"	resultType="hashmap">
+	SELECT b.org_category_nm org_category_nm, SUM(a.don_amt) don_amt
+		  FROM don_user_don_hst a
+		     , don_org_info b
+		 WHERE 1=1
+		   AND a.user_id = #{userId}
+		   AND a.org_id = b.org_id
+			AND DATE_FORMAT(a.rcv_dtm, '%Y') = DATE_FORMAT(SYSDATE(), '%Y')
+		 GROUP BY a.user_id, b.org_category_id
+		 ORDER BY don_amt DESC
+	</select>
+
+</mapper>
