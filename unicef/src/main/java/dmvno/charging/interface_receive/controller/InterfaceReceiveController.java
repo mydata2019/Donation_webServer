@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +22,7 @@ final class InterfaceReceiveController {
 	private final InterfaceReceiveService interfaceReceiveService;
 
 	@Autowired
-	public InterfaceReceiveController(final InterfaceReceiveService interfaceReceiveService) {
+	public InterfaceReceiveController(final InterfaceReceiveService interfaceReceiveService, final String localIp) {
 		this.interfaceReceiveService = interfaceReceiveService;
 	}
 

@@ -18,9 +18,9 @@ class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository userRepo; //repository
 	
-	public boolean confirmUserInfo(String userLoginId, String userPassword) {
+	public int confirmUserInfo(String userLoginId, String userPassword) {
 		
-		boolean result = false;
+		int result = 0;
 		
 		try
 		{			
@@ -28,12 +28,12 @@ class UserServiceImpl implements UserService {
 			int id = resultData.getUserId();
 			
 			if(id > 0) {
-				result = true;
+				result = id;
 			}			
 
 		} catch (Exception e) {
 			// TODO: handle exception
-			result = false;
+			result = 0;
 		
 		} finally {
 			// TODO: handle finally clause

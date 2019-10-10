@@ -11,6 +11,6 @@ import org.springframework.stereotype.Service;
  */
 public interface UserService {
 
-	boolean confirmUserInfo(String userLoginId, String userPassword); 
+	int confirmUserInfo(String userLoginId, String userPassword); 
   
 }
