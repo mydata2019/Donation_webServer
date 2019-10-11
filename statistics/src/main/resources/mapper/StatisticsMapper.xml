@@ -33,7 +33,7 @@
 		  FROM don_user_don_hst a
 		     , don_org_info b
 		 WHERE 1=1
-		   AND a.user_id = 2
+		   AND a.user_id = #{userId}
 		   AND a.org_id = b.org_id
 			AND SUBSTR(a.don_dt, 1,4) = DATE_FORMAT(SYSDATE(), '%Y')
 		) A,
