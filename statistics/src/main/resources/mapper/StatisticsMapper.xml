@@ -93,7 +93,7 @@
 	</select>
 	
 	<select id="selectPieStatistics"	resultType="hashmap">
-	SELECT b.org_category_nm org_category_nm, SUM(a.don_amt) don_amt
+	SELECT b.org_category_nm org_category_nm, SUM(a.don_amt/10000) don_amt
 		  FROM don_user_don_hst a
 		     , don_org_info b
 		 WHERE 1=1
